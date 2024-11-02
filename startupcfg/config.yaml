@@ -1,0 +1,24 @@
+api: # 接口调用配置 示范
+  service-discovery:
+    domain: http://odp-platform.servicediscovery.odpcldev.woa.com
+    urls:
+      TemplateCopyInClusterService: /v1/project/{{.projectName}}/paas/{{.paasName}}/cls/{{.cluster}}/services?copyOf={{.oldCdName}}&isOverwrite=true&sourceClsId={{.oldCluster}}
+      TemplateDeleteCdCheckPolarisGroups: ""
+      TemplateDeleteCdCheckLoadBalances: /v1/project/{{.projectName}}/paas/{{.paasName}}/loadbalancers
+mysql: # mysql 地域/环境/变量名
+  MysqlConnect:
+    address: 127.0.0.1:3306
+    username: root
+    pwEncoded: fe7793b1bb65177b789998a47c7d02aa2f2c0b792fe979752ca52fc2d43cb2b7
+    database: db_gdp_server
+custom: # 自定义配置
+  sensitive: # 加密敏感配置
+    tCRPushCommConn: beffcb338441ae7a78a1091219ac4c8eaf3686133371a12cbe509c62032fc579341b31677dfbac5ee799432187595a170e6349d848dbda5e1dc92a13bb2eb27ca05df9f299a663841cd26cc79cbb3d7aca466f4880e88b291735057727b087be2a2a4803ca0a58a39e9131aa476f5a17cf93bf7e593574f86e6a5e697438e380e4a9d9bf4958a7fa439494cf48ee9c8cb8d1a5514a120e8f264940decca8ea43218bcbdf811fdcd2a8d6e23776d7a302fc52da192edb75ab5d7f960d733443a99488ef01bbc8880bbc59c55905d20b6933474cb690b6a5b7e885b79b705a83a743c569238588e6e3d48d63d387afdd7189884eaf83dca4356965aece9ef5d57ef56f7eb147b85702cde2980d829ff6579db332f79d2d209ef74ebd531727b055cdd6b17d6a753aaf23ef394b8599d6bc727447ae0e37938d3d8100bc74d918954c58525c90282c3171c975130ceab47470b4d96ae0d3448b106b699440af5d8ef5a52360ec4bd558bbc4871c0b8c3f9057e9c6f76e165b478651bbc743ff62f3089dcb9edf69e27f0def67b590d52fd54b9f6ea7a03de9a635c7225732405e12b100fc4ad13270e8f8586937b76859691128cf6d0624353415e705362576857e6b29e26c5604209590840703eea4b850cbe55d39ea893db3bab9154b98d9976263ba564fce4f64c8217c97eea33fedcfe06558215313ecd132b30b58e6f7e6245889a4fcb6ea0a111a7a0b788efffc8de2e4927effde9f7e22a90af1c5cf45dbf4d57dba87f3f96c18dd8b0bfb176b1cdfa27c7f6464bcd2000286c29299c13562d85bd69d9afb7b62c8c68d8f8d6bf02727b56634b58df54a98df1a82edc74668a2a955ec3616eeb222c4a95c933c7b3445589b3c7198d6303246cfc5f13e4a63dfe6bbeb55d86eeb13fe0e9d337b76
+    tCRPullCommConn: 2d95eb4772acda55b1060212508936162ad132fdccb4892ba7aec4f3491d6ebb
+  normal: # 非加密普通配置
+    AppId: gdp-appserver-go
+    CloseHttpMemCache: false
+    UserProductionAlarmList: tiantian
+    HostAndPort:
+      host: 0.0.0.0
+      port: 8084
