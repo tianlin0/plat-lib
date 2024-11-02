@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/samber/lo"
 	"github.com/tianlin0/plat-lib/conv"
+	"github.com/tianlin0/plat-lib/encode"
 	"strconv"
 	"testing"
 )
@@ -38,11 +39,11 @@ func TestEncodePass(t *testing.T) {
 	//
 	//return
 
-	//paasStr := ``
-	//aaaaa, err := encode.CBCEncrypt(paasStr, "")
-	//fmt.Println(aaaaa, err)
-	//bbbb, _ := encode.CBCDecrypt(`dfb6a924c8acebbf3cb5ca8e2fbd62997ffcf7ba12d1f4a8214b47eed4e6d902`, "")
-	//fmt.Println(bbbb)
+	paasStr := ``
+	aaaaa, err := encode.CBCEncrypt(paasStr, "")
+	fmt.Println(aaaaa, err)
+	bbbb, _ := encode.CBCDecrypt(`dfb6a924c8acebbf3cb5ca8e2fbd62997ffcf7ba12d1f4a8214b47eed4e6d902`, "")
+	fmt.Println(bbbb)
 }
 func TestEncodePass11(t *testing.T) {
 	serviceKeys := []int{1, 2, 3}
