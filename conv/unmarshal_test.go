@@ -469,7 +469,7 @@ func TestGetCiInfo44(t *testing.T) {
 	newCopyCdParam := new(CopyCd)
 	newCopyCdParam.Version = 55
 
-	err := AssignTo(params, newCopyCdParam)
+	err := assignTo(params, newCopyCdParam)
 	if err != nil {
 		log.Println("Unmarshal error:", err)
 	}
