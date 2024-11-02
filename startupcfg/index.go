@@ -2,11 +2,10 @@ package startupcfg
 
 import (
 	"fmt"
-	"git.woa.com/odp-go/gdp-lib/conn"
-	"git.woa.com/odp-go/gdp-lib/conv"
-	"git.woa.com/odp-go/gdp-lib/logs"
-	startupCfg "git.woa.com/odp-go/gdp-lib/startupcfg/startupconfig"
-	"git.woa.com/odp-go/gdp-lib/templates"
+	"github.com/tianlin0/plat-lib/conn"
+	"github.com/tianlin0/plat-lib/conv"
+	startupCfg "github.com/tianlin0/plat-lib/internal/startupconfig"
+	"github.com/tianlin0/plat-lib/templates"
 	"net"
 	"net/url"
 	"strings"
@@ -29,7 +28,6 @@ func getInstanceFromYaml(isFilePathName bool, configFile string) (*startupCfg.Co
 	}
 
 	if err != nil {
-		logs.DefaultLogger().Error(err)
 		return nil, err
 	}
 	return conf, nil
@@ -77,7 +75,6 @@ func getOneConnFromAddress(address string) (*conn.Connect, error) {
 
 	host, port, err := net.SplitHostPort(hostPort)
 	if err != nil {
-		logs.DefaultLogger().Error("getOneConnFromAddress Error:", address, err)
 		return nil, err
 	}
 	oneConnect.Host = host
@@ -412,7 +409,7 @@ func (c cfgOpt) SetEmptyEnvKeyName(driver string) cfgOpt {
 	}
 }
 
-//SetEnvSplit env的分隔符
+// SetEnvSplit env的分隔符
 func (c cfgOpt) SetEnvSplit(split string) cfgOpt {
 	return func(do *Startup) {
 		c(do)
@@ -422,7 +419,7 @@ func (c cfgOpt) SetEnvSplit(split string) cfgOpt {
 	}
 }
 
-//SetPaasSplit url中paas与urlKey之间的分隔符
+// SetPaasSplit url中paas与urlKey之间的分隔符
 func (c cfgOpt) SetPaasSplit(split string) cfgOpt {
 	return func(do *Startup) {
 		c(do)
