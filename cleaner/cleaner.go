@@ -19,7 +19,7 @@ type Cleanable interface {
 
 var (
 	resourcesMu sync.RWMutex
-	resources   = make([]Cleanable, 1)
+	resources   = make([]Cleanable, 0)
 )
 
 // Register 注册清理器
@@ -31,25 +31,48 @@ func Register(r ...Cleanable) {
 
 // Run 运行清理器
 func Run(ctx context.Context) {
-	unRegisterAll := func() {
+	unRegisterList := func(start, end int) {
 		resourcesMu.Lock()
 		defer resourcesMu.Unlock()
-		resources = make([]Cleanable, 1)
+		if start <= 0 {
+			start = 0
+		}
+		if end >= len(resources)-1 {
+			end = len(resources) - 1
+		}
+		if start > end {
+			return
+		}
+
+		if end == len(resources)-1 {
+			resources = resources[:start]
+		} else {
+			resources = append(resources[:start], resources[end+1:]...)
+		}
 	}
 
 	var wg sync.WaitGroup
-	wg.Add(len(resources))
+	total := len(resources)
+	if total == 0 {
+		return
+	}
+	start := 0
+	end := total - 1
+
+	wg.Add(total)
 	cleanup := func(reason string) {
-		last := len(resources) - 1
 		for i := range resources {
-			r := resources[last-i]
+			if i > end {
+				break
+			}
+			r := resources[i]
 			if r != nil {
 				fmt.Printf("( %s ) terminated, %s", r.Name(), reason)
 				r.Stop()
 			}
 			wg.Done()
 		}
-		unRegisterAll()
+		unRegisterList(start, end)
 	}
 
 	terminateIf(ctx,
