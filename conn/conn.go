@@ -18,6 +18,15 @@ type connInterface interface {
 
 var _, _, _ connInterface = new(mysqlConnect), new(redisConnect), new(tdmConnect)
 
+//type connectAPI interface {
+//	Driver() string
+//	Protocol() string
+//	HostAndPort() (string, int)
+//	UserAndPassword() (string, string)
+//	Database() string
+//	Extend() string
+//}
+
 // Connect 数据连接对象
 type Connect struct {
 	Driver   string                 `json:"driver,omitempty"`
