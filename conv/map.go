@@ -2,7 +2,7 @@ package conv
 
 import (
 	"github.com/iancoleman/orderedmap"
-	jsoniter "github.com/tianlin0/plat-lib/internal/jsoniter/go"
+	"github.com/json-iterator/go"
 	"github.com/tidwall/gjson"
 	"github.com/tidwall/sjson"
 	"log"

@@ -2,6 +2,8 @@
 package conn
 
 import (
+	"fmt"
+	startupCfg "github.com/tianlin0/plat-lib/internal/startupconfig"
 	"net"
 	"strconv"
 )
@@ -34,21 +36,21 @@ type Connect struct {
 	Host     string                 `json:"host,omitempty"`
 	Port     string                 `json:"port,omitempty"`
 	Username string                 `json:"username,omitempty"`
-	Password string                 `json:"password,omitempty"`
+	Password startupCfg.Encrypted   `json:"password,omitempty"`
 	Database string                 `json:"database,omitempty"`
 	Extend   map[string]interface{} `json:"extend,omitempty"`
 }
 
 // ConnFunc 数据连接参数
-type connOpt func(*Connect)
+type connOption func(*Connect)
 
 // NewOption 新增
-func NewOption() connOpt {
+func NewOption() connOption {
 	return func(*Connect) {}
 }
 
 // DialDriver 连接类型
-func (c connOpt) DialDriver(driver string) connOpt {
+func (c connOption) DialDriver(driver string) connOption {
 	return func(do *Connect) {
 		c(do)
 		do.Driver = driver
@@ -56,7 +58,7 @@ func (c connOpt) DialDriver(driver string) connOpt {
 }
 
 // DialProtocol 连接协议
-func (c connOpt) DialProtocol(protocol string) connOpt {
+func (c connOption) DialProtocol(protocol string) connOption {
 	return func(do *Connect) {
 		c(do)
 		do.Protocol = protocol
@@ -64,7 +66,7 @@ func (c connOpt) DialProtocol(protocol string) connOpt {
 }
 
 // DialHostPort 连接ip和端口号
-func (c connOpt) DialHostPort(host string, port string) connOpt {
+func (c connOption) DialHostPort(host string, port string) connOption {
 	return func(do *Connect) {
 		c(do)
 		do.Host = host
@@ -73,7 +75,7 @@ func (c connOpt) DialHostPort(host string, port string) connOpt {
 }
 
 // DialDatabase 连接库
-func (c connOpt) DialDatabase(db string) connOpt {
+func (c connOption) DialDatabase(db string) connOption {
 	return func(do *Connect) {
 		c(do)
 		do.Database = db
@@ -81,7 +83,7 @@ func (c connOpt) DialDatabase(db string) connOpt {
 }
 
 // DialUserNamePassword 连接用户名和密码
-func (c connOpt) DialUserNamePassword(username, password string) connOpt {
+func (c connOption) DialUserNamePassword(username string, password startupCfg.Encrypted) connOption {
 	return func(do *Connect) {
 		c(do)
 		do.Username = username
@@ -90,7 +92,7 @@ func (c connOpt) DialUserNamePassword(username, password string) connOpt {
 }
 
 // DialExtend 扩展函数
-func (c connOpt) DialExtend(ext map[string]interface{}) connOpt {
+func (c connOption) DialExtend(ext map[string]interface{}) connOption {
 	return func(do *Connect) {
 		c(do)
 
@@ -108,7 +110,7 @@ func (c connOpt) DialExtend(ext map[string]interface{}) connOpt {
 }
 
 // GetConnString 获取连接字符串，不同的driver，返回的不同
-func (con *Connect) GetConnString(cp ...connOpt) string {
+func (con *Connect) GetConnString(cp ...connOption) (string, error) {
 	for _, one := range cp {
 		one(con)
 	}
@@ -116,16 +118,21 @@ func (con *Connect) GetConnString(cp ...connOpt) string {
 }
 
 // getConnString 获取连接字符串，不同的driver，返回的不同
-func getConnString(con *Connect) string {
+func getConnString(con *Connect) (string, error) {
 	if con == nil {
-		return ""
+		return "", fmt.Errorf("con is nil")
 	}
 
+	pass, err := con.Password.Get()
+	if err != nil {
+		return "", err
+	}
 	if con.Driver == DriverMysql {
+
 		myConn := &mysqlConnect{
 			Host:     con.Host,
 			Username: con.Username,
-			Password: con.Password,
+			Password: pass,
 			Database: con.Database,
 		}
 		if con.Port != "" {
@@ -139,14 +146,14 @@ func getConnString(con *Connect) string {
 				myConn.Charset = char.(string)
 			}
 		}
-		return myConn.getConnect()
+		return myConn.getConnect(), nil
 	}
 
 	if con.Driver == DriverRedis {
 		redisConn := &redisConnect{
 			Host:     con.Host,
 			Username: con.Username,
-			Password: con.Password,
+			Password: pass,
 		}
 		if con.Port != "" {
 			p, err := strconv.Atoi(con.Port)
@@ -160,7 +167,7 @@ func getConnString(con *Connect) string {
 				redisConn.Database = p
 			}
 		}
-		return redisConn.getConnect()
+		return redisConn.getConnect(), nil
 	}
 
 	if con.Driver == DriverTdmq {
@@ -174,16 +181,16 @@ func getConnString(con *Connect) string {
 				tdmConn.Port = p
 			}
 		}
-		return tdmConn.getConnect()
+		return tdmConn.getConnect(), nil
 	}
 
 	//默认的地址
 	if con.Host != "" {
 		if con.Port != "" {
-			return net.JoinHostPort(con.Host, con.Port)
+			return net.JoinHostPort(con.Host, con.Port), nil
 		}
-		return con.Host
+		return con.Host, nil
 	}
 
-	return ""
+	return "", nil
 }

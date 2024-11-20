@@ -3,7 +3,7 @@ package conv
 import (
 	"fmt"
 	"github.com/jinzhu/copier"
-	jsoniter "github.com/json-iterator/go"
+	jsoniter "github.com/tianlin0/plat-lib/internal/jsoniter/go"
 	"log"
 	"reflect"
 )

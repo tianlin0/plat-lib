@@ -2,6 +2,8 @@ package templates
 
 import (
 	"fmt"
+	"github.com/rulego/rulego"
+	"github.com/rulego/rulego/api/types"
 	"strings"
 	"testing"
 )
@@ -41,4 +43,68 @@ func TestRuleExp(t *testing.T) {
 	dataMap2 := "code"
 	retOk, err := RuleExpr(str, dataMap2)
 	fmt.Println(retOk, err)
+}
+
+func TestRuleGo(t *testing.T) {
+	ruleFile := []byte(`{
+  "ruleChain": {
+    "id":"chain_call_rest_api",
+    "name": "测试规则链",
+    "root": true
+  },
+  "metadata": {
+    "nodes": [
+      {
+        "id": "s1",
+        "type": "jsFilter",
+        "name": "过滤",
+        "debugMode": true,
+        "configuration": {
+          "jsScript": "return msg!='bb';"
+        }
+      },
+      {
+        "id": "s2",
+        "type": "jsTransform",
+        "name": "转换",
+        "debugMode": true,
+        "configuration": {
+          "jsScript": "metadata['test']='test02';\n metadata['index']=52;\n msgType='TEST_MSG_TYPE2';\n  msg['aa']=66; return {'msg':msg,'metadata':metadata,'msgType':msgType};"
+        }
+      },
+      {
+        "id": "s3",
+        "type": "restApiCall",
+        "name": "推送数据",
+        "debugMode": true,
+        "configuration": {
+          "restEndpointUrlPattern": "http://192.168.136.26:9099/api/msg",
+          "requestMethod": "POST",
+          "maxParallelRequestsCount": 200
+        }
+      }
+    ],
+    "connections": [
+      {
+        "fromId": "s1",
+        "toId": "s2",
+        "type": "True"
+      },
+      {
+        "fromId": "s2",
+        "toId": "s3",
+        "type": "Success"
+      }
+    ]
+  }
+}`)
+	ruleEngine, _ := rulego.New("rule01", ruleFile)
+
+	metaData := types.NewMetadata()
+	metaData.PutValue("productType", "test01")
+
+	msg := types.NewMsg(0, "TELEMETRY_MSG", types.JSON, metaData, `{"temperature":35}`)
+
+	ruleEngine.OnMsg(msg)
+
 }

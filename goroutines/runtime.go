@@ -32,7 +32,7 @@ func GoSyncHandler(callFunction func(params ...interface{}), panicHandle func(er
 
 // GoAsyncHandler 异步方法
 // 异步有一个总量，不然会创建太多，造成系统阻塞了
-//var ch = make(chan bool, 50)
+// var ch = make(chan bool, 50)
 func GoAsyncHandler(callFunction func(params ...interface{}), panicHandle func(err error), params ...interface{}) {
 	//ch <- true
 	go func(tempParams ...interface{}) {
