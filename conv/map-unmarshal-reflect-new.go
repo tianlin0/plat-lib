@@ -18,7 +18,7 @@ import (
 1、目前不能解决继承为小写的情况
 2、已有值了，填充没有的情况
 */
-func assignTo(srcStruct interface{}, dstPoint interface{}) error {
+func AssignTo(srcStruct interface{}, dstPoint interface{}) error {
 	//对 srcStruct 和 dstPoint 进行处理
 	fill := new(getNewService)
 	dstValue, err := fill.GetByDstAll(srcStruct, reflect.TypeOf(dstPoint))

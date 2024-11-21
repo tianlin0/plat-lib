@@ -83,7 +83,7 @@ func Unmarshal(srcStruct interface{}, dstPoint interface{}) error {
 		return errJson
 	}
 
-	err = assignTo(srcStruct, dstPoint)
+	err = AssignTo(srcStruct, dstPoint)
 	if err != nil {
 		log.Println("Unmarshal error:", err)
 		return errJson
