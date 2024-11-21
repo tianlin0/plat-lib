@@ -7,7 +7,6 @@
 ## Installation
 
 ```bash
-go get git.woa.com/gdp/lib/startupconfig
 ```
 
 ## Usage
@@ -19,7 +18,7 @@ go get git.woa.com/gdp/lib/startupconfig
 import (
     "log"
 
-    startup "git.woa.com/gdp/lib/startupconfig"
+    startup ""
 )
 
 func main() {
@@ -180,7 +179,7 @@ api: # 接口调用配置
   paas1: # 接口服务名
     auth: # 加密授权信息
       token: 6d6d4ee0a871d34f47e39450f9219883112839e7b2bfac418f35abef09961317
-    domain: http://odp-platform.idle-paas-discovery.odpcldev.woa.com
+    domain: 
     polaris:
       host: odp-platform.idle-paas-discovery
       namespace: Development
@@ -191,7 +190,7 @@ api: # 接口调用配置
   paas2: # 接口服务名
     auth: # 加密授权信息
       id: 6d6d4ee0a871d34f47e39450f9219883112839e7b2bfac418f35abef09961317
-    domain: http://odp-platform.startup-configuration.odpcldev.woa.com
+    domain: 
     polaris:
       host: odp-platform.startup-configuration
       namespace: Development
@@ -224,7 +223,7 @@ tdmq: # tdmq 配置
   myTDMQ:
     brokerAddr: http://pulsar-25m59wk2dg85.tdmq-pulsar.ap-sh.qcloud.tencenttdmq.com:5039
     initialPosition: earliest # earliest/lasted
-    jwtToken: 30acf6565b803600ceaad1584b477d29a784e8f52644c828dd1be1d0dcabd25b # 加密token
+    jwtToken: -- # 加密token
     subscriptionName: odp-platform.idle-paas-discovery
     topics:
       ci: dev/gdp-event-ci
@@ -233,7 +232,7 @@ tdmq: # tdmq 配置
   otherTDMQ:
     brokerAddr: http://pulsar-25m59wk2dg85.tdmq-pulsar.ap-sh.qcloud.tencenttdmq.com:5039
     initialPosition: earliest # earliest/lasted
-    jwtToken: 30acf6565b803600ceaad1584b477d29a784e8f52644c828dd1be1d0dcabd25b # 加密token
+    jwtToken: -- # 加密token
     subscriptionName: odp-platform.idle-paas-discovery
     topics:
       ci: dev/gdp-event-ci
@@ -241,7 +240,7 @@ tdmq: # tdmq 配置
 custom: # 自定义配置
   sensitive: # 加密敏感配置
     clientId: 6d6d4ee0a871d34f47e39450f9219883112839e7b2bfac418f35abef09961317
-    clientSecret: 30acf6565b803600ceaad1584b477d29a784e8f52644c828dd1be1d0dcabd25b
+    clientSecret: --
   normal: # 非加密普通配置
     timeout: 10
     max: 100
@@ -250,7 +249,7 @@ custom: # 自定义配置
 tracing: # tracing 配置
   service: "Service-A"
   tenantId: "test"
-  address: "test.xxx.woa.com"
+  address: "test.xxx.com"
   httpPort: "12345"
   grpcPort: "12346"
   sampleRatio: 0.01
@@ -289,7 +288,7 @@ import (
 	"fmt"
 	"log"
 
-	startup "git.woa.com/gdp/lib/startupconfig"
+	startup ""
 )
 
 func main() {
@@ -311,7 +310,7 @@ import (
 	"fmt"
 	"log"
 
-	startup "git.woa.com/gdp/lib/startupconfig"
+	startup ""
 )
 
 func main() {

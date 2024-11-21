@@ -9,7 +9,7 @@ import (
 )
 
 func TestPushMsg(t *testing.T) {
-	message, err := nsqd.PushMessage("http://odp-platform.nsq.gdppubdev3.woa.com", nil, "helloTitle", "dsfdsfsdfs")
+	message, err := nsqd.PushMessage("", nil, "helloTitle", "dsfdsfsdfs")
 	if err != nil {
 		return
 	}
@@ -18,7 +18,7 @@ func TestPushMsg(t *testing.T) {
 }
 
 func TestCustomer(t *testing.T) {
-	nsqd.StartConsumer("http://odp-platform.nsq.gdppubdev3.woa.com:80", "helloTitle", "chenel1", func(message *nsq.Message) error {
+	nsqd.StartConsumer("", "helloTitle", "chenel1", func(message *nsq.Message) error {
 		fmt.Println(message)
 		return nil
 	})

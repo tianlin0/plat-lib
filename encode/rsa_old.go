@@ -23,14 +23,14 @@ import (
   pubOld, _ := utils.RsaDecryptByPrivateKey(pubSecret, priKey)
   fmt.Println(pubOld)
 
-  priSecret, _ := utils.RsaEncryptByPrivateKey("my name is tiantian", priKey)
+  priSecret, _ := utils.RsaEncryptByPrivateKey("my name is", priKey)
   fmt.Println(priSecret)
 
   priOld, _ := utils.RsaDecryptByPublicKey(priSecret, pubKey)
   fmt.Println(priOld)
 */
 
-//GenRsaPublicAndPrivateKey111 RSA公钥私钥产生
+// GenRsaPublicAndPrivateKey111 RSA公钥私钥产生
 func GenRsaPublicAndPrivateKey111() (pubKey, priKey string, err error) {
 	bits := 1024
 	// 生成私钥文件
@@ -200,7 +200,7 @@ func RSA_Encrypt(plainText string, pubKey string) string {
 	return base64.StdEncoding.EncodeToString(cipherText)
 }
 
-//RSA_Decrypt 非对称解密
+// RSA_Decrypt 非对称解密
 func RSA_Decrypt(cipherText string, priKey string) []byte {
 	priKey = buitPriKey(priKey)
 

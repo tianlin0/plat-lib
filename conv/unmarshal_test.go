@@ -61,7 +61,7 @@ func TestBachGetPageList(t *testing.T) {
 
 	var aa int = 3
 	Unmarshal(One{
-		FullName: "tiantian",
+		FullName: "",
 		OneP: &Two{
 			Name: "bbbb",
 			Age:  20,
@@ -148,7 +148,7 @@ type PaasInsertParam struct {
 
 func TestBachGetPageList2(t *testing.T) {
 	//allParam := `{"user_list":[{"userkey":"dsfdsfs","type":0,"isBool":1},{"userkey":"aarenmeng","type":0,"isBool":2}],"role_id":2,"domain":"project","subdomain":"2qkc6haus5c0"}`
-	allParam := `{"project_name":"h5ui","paas_cn_name":"h5ui-logserver","ignore_git":0,"paas_desc":"","cluster":"","paas_img":"","git_url":"https://git.woa.com/h5ui/h5ui-management.git","paas_name":"h5ui-logserver","env":""}`
+	allParam := `{"project_name":"h5ui","paas_cn_name":"h5ui-logserver","ignore_git":0,"paas_desc":"","cluster":"","paas_img":"","git_url":"","paas_name":"h5ui-logserver","env":""}`
 
 	newPaas := PaasInsertParam{}
 	_ = Unmarshal(allParam, &newPaas)
@@ -551,7 +551,7 @@ type newUserAndClientTokenInfo struct {
 }
 
 func TestDCd(t *testing.T) {
-	tokenString := `{"X-Gdp-Jwt-Assertion":"eyJhbGciOiJSUzI1NiIsImtpZCI6ImJlMmEzZTFjLTUwOGEtNDIwNC04Y2I1LWRmYjE3ZmQwZjY1ZSIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJvZHAtZXh0ZXJuYWwiLCJjbGllbnRfdHlwZSI6ImFkbWluIiwiZXhwIjoxNzAzNzA5NTA1LCJpYXQiOjE3MDM2NjYzMDUsInNjb3BlIjoiZ2RwYWRtaW4ifQ.tRDtK-vEBRGI1cexxybHX5Vp6HFy2hVTCj2cH6K7Gdg63fQzJXyp616WbhEGxo4MU04jBfaNytPiP0HIL2l5Tl5NUHNzXrEsgITP7y-a1ukc2pbKP-nW_MENKcx4i1l8ybGmxDBm-90VcAUZYrcB2IhpkPLNDcFd5pIl3HeBE9pluJUco5fyWPjYN3RVWHfHwmYV--vgWSehsHBlSaPheGvQvG8zwOcm7WJL5Aoz4KeNpIEseSYrw4xvmKZ0F-GpGGdjASO6Cc60qE5RWXkW8m3VPQddN1H1LYVPLDDYhOMstsJhnHIERDkrg8Pxr6VL3lvrsvTxlz4zj70eYjj77A","access_token":"ZJMZYZVLM2YTYWUXYY0ZN2ZILTHLMDATNTUYNGZMOGUWYZUZ","client_id":"odp-external","client_type":"admin","expires_in":600065,"refresh_token":"Y2Q5NZA2ZMYTMTY2MC01ZTU0LTLINZATMGIYNJZLNDBJZWM0","token_type":"Bearer","userid":"odp-external","usertype":"admin","OauthDomain":"http://odp-platform.gdp-login.gdppubdev3.woa.com","ClientSecret":"827f0a65-48b3-11eb-b993-8e2d46a782b1","UserName":"","UserSecret":"","ClientScope":"odp-external","CreateTime":"2023-12-27 16:38:39"}`
+	tokenString := `{"X-Gdp-Jwt-Assertion":"eyJhbGciOiJSUzI1NiIsImtpZCI6ImJlMmEzZTFjLTUwOGEtNDIwNC04Y2I1LWRmYjE3ZmQwZjY1ZSIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJvZHAtZXh0ZXJuYWwiLCJjbGllbnRfdHlwZSI6ImFkbWluIiwiZXhwIjoxNzAzNzA5NTA1LCJpYXQiOjE3MDM2NjYzMDUsInNjb3BlIjoiZ2RwYWRtaW4ifQ.tRDtK-vEBRGI1cexxybHX5Vp6HFy2hVTCj2cH6K7Gdg63fQzJXyp616WbhEGxo4MU04jBfaNytPiP0HIL2l5Tl5NUHNzXrEsgITP7y-a1ukc2pbKP-nW_MENKcx4i1l8ybGmxDBm-90VcAUZYrcB2IhpkPLNDcFd5pIl3HeBE9pluJUco5fyWPjYN3RVWHfHwmYV--vgWSehsHBlSaPheGvQvG8zwOcm7WJL5Aoz4KeNpIEseSYrw4xvmKZ0F-GpGGdjASO6Cc60qE5RWXkW8m3VPQddN1H1LYVPLDDYhOMstsJhnHIERDkrg8Pxr6VL3lvrsvTxlz4zj70eYjj77A","access_token":"ZJMZYZVLM2YTYWUXYY0ZN2ZILTHLMDATNTUYNGZMOGUWYZUZ","client_id":"odp-external","client_type":"admin","expires_in":600065,"refresh_token":"Y2Q5NZA2ZMYTMTY2MC01ZTU0LTLINZATMGIYNJZLNDBJZWM0","token_type":"Bearer","userid":"odp-external","usertype":"admin","OauthDomain":"","ClientSecret":"827f0a65-48b3-11eb-b993-8e2d46a782b1","UserName":"","UserSecret":"","ClientScope":"odp-external","CreateTime":"2023-12-27 16:38:39"}`
 
 	newClientInfo := new(newUserAndClientTokenInfo)
 	err := Unmarshal(tokenString, newClientInfo)

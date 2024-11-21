@@ -65,7 +65,7 @@ func getData(aa string) (string, error) {
 }
 
 func TestTimeout(t *testing.T) {
-	name := "tiantian"
+	name := ""
 	aa, err := goroutines.RunWithTimeout(1*time.Second, func() (string, error) {
 		return getData(name)
 	})

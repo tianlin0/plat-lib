@@ -1,6 +1,6 @@
 api: # 接口调用配置 示范
   service-discovery:
-    domain: http://odp-platform.servicediscovery.odpcldev.woa.com
+    domain: ""
     urls:
       TemplateCopyInClusterService: /v1/project/{{.projectName}}/paas/{{.paasName}}/cls/{{.cluster}}/services?copyOf={{.oldCdName}}&isOverwrite=true&sourceClsId={{.oldCluster}}
       TemplateDeleteCdCheckPolarisGroups: ""
@@ -18,7 +18,7 @@ custom: # 自定义配置
   normal: # 非加密普通配置
     AppId: gdp-appserver-go
     CloseHttpMemCache: false
-    UserProductionAlarmList: tiantian
+    UserProductionAlarmList: aaaaa
     HostAndPort:
       host: 0.0.0.0
       port: 8084
