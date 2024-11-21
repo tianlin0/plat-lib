@@ -3,7 +3,6 @@ package conn
 
 import (
 	"fmt"
-	startupCfg "github.com/tianlin0/plat-lib/internal/startupconfig"
 	"net"
 	"strconv"
 )
@@ -36,7 +35,7 @@ type Connect struct {
 	Host     string                 `json:"host,omitempty"`
 	Port     string                 `json:"port,omitempty"`
 	Username string                 `json:"username,omitempty"`
-	Password startupCfg.Encrypted   `json:"password,omitempty"`
+	Password string                 `json:"password,omitempty"`
 	Database string                 `json:"database,omitempty"`
 	Extend   map[string]interface{} `json:"extend,omitempty"`
 }
@@ -83,7 +82,7 @@ func (c connOption) DialDatabase(db string) connOption {
 }
 
 // DialUserNamePassword 连接用户名和密码
-func (c connOption) DialUserNamePassword(username string, password startupCfg.Encrypted) connOption {
+func (c connOption) DialUserNamePassword(username string, password string) connOption {
 	return func(do *Connect) {
 		c(do)
 		do.Username = username
@@ -123,16 +122,12 @@ func getConnString(con *Connect) (string, error) {
 		return "", fmt.Errorf("con is nil")
 	}
 
-	pass, err := con.Password.Get()
-	if err != nil {
-		return "", err
-	}
 	if con.Driver == DriverMysql {
 
 		myConn := &mysqlConnect{
 			Host:     con.Host,
 			Username: con.Username,
-			Password: pass,
+			Password: con.Password,
 			Database: con.Database,
 		}
 		if con.Port != "" {
@@ -153,7 +148,7 @@ func getConnString(con *Connect) (string, error) {
 		redisConn := &redisConnect{
 			Host:     con.Host,
 			Username: con.Username,
-			Password: pass,
+			Password: con.Password,
 		}
 		if con.Port != "" {
 			p, err := strconv.Atoi(con.Port)
@@ -192,5 +187,5 @@ func getConnString(con *Connect) (string, error) {
 		return con.Host, nil
 	}
 
-	return "", nil
+	return "", fmt.Errorf("host is empty")
 }

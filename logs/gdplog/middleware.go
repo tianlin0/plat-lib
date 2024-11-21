@@ -5,7 +5,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/tianlin0/plat-lib/httputil"
+	"github.com/tianlin0/plat-lib/utils/httputil"
 	"io"
 	"io/ioutil"
 	"net"

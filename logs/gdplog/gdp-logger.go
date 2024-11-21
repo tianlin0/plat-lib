@@ -3,9 +3,9 @@ package gdplog
 import (
 	"context"
 	"github.com/sirupsen/logrus"
-	"github.com/tianlin0/plat-lib/httputil"
 	"github.com/tianlin0/plat-lib/logs"
 	"github.com/tianlin0/plat-lib/utils"
+	"github.com/tianlin0/plat-lib/utils/httputil"
 )
 
 // gdpLogger 自定义日志的使用方式

@@ -2,8 +2,8 @@ package logs
 
 import (
 	"context"
-	"github.com/tianlin0/plat-lib/httputil"
 	"github.com/tianlin0/plat-lib/utils"
+	"github.com/tianlin0/plat-lib/utils/httputil"
 )
 
 // ctxLogger 自定义日志的使用方式
