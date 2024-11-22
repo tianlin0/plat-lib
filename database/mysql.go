@@ -77,7 +77,7 @@ func syncMysqlPing() {
 func getMysqlCacheKey(con *conn.Connect) string {
 	keyStr, err := encode.Serialize(con)
 	if err != nil {
-		conStr := con.GetConnString()
+		conStr, _ := con.GetConnString()
 		keyStr = fmt.Sprintf("%s://%s", con.Driver, conStr)
 	}
 	return encode.Md5(keyStr)
@@ -111,7 +111,10 @@ func GetXormEngine(con *conn.Connect) *xorm.Engine {
 	}
 
 	if con.Driver == conn.DriverMysql {
-		connStr := con.GetConnString()
+		connStr, err1 := con.GetConnString()
+		if err1 != nil {
+			return nil
+		}
 		engine, err := xorm.NewEngine(con.Driver, connStr)
 		err2 := engine.Ping()
 		logs.DefaultLogger().Debug("mysql.GetXormEngine:", con, engine, err, connStr, err2)

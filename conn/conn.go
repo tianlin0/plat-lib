@@ -123,7 +123,6 @@ func getConnString(con *Connect) (string, error) {
 	}
 
 	if con.Driver == DriverMysql {
-
 		myConn := &mysqlConnect{
 			Host:     con.Host,
 			Username: con.Username,
