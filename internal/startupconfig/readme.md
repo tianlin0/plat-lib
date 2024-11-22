@@ -221,7 +221,7 @@ redis: # redis 配置
     pwEncoded: 30acf6565b803600ceaad1584b477d29a784e8f52644c828dd1be1d0dcabd25b # 加密password
 tdmq: # tdmq 配置
   myTDMQ:
-    brokerAddr: http://pulsar-25m59wk2dg85.tdmq-pulsar.ap-sh.qcloud.tencenttdmq.com:5039
+    brokerAddr: ""
     initialPosition: earliest # earliest/lasted
     jwtToken: -- # 加密token
     subscriptionName: odp-platform.idle-paas-discovery
@@ -230,7 +230,7 @@ tdmq: # tdmq 配置
       cd: dev/gdp-event-cd
       userOperation: dev/gdp-event-operations
   otherTDMQ:
-    brokerAddr: http://pulsar-25m59wk2dg85.tdmq-pulsar.ap-sh.qcloud.tencenttdmq.com:5039
+    brokerAddr: ""
     initialPosition: earliest # earliest/lasted
     jwtToken: -- # 加密token
     subscriptionName: odp-platform.idle-paas-discovery

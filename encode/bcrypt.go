@@ -15,6 +15,7 @@ func BCryptPasswordEncoder(password string, cost ...int) (string, error) {
 	}
 	return string(retByte), nil
 }
-func BCryptCompareHashAndPassword(hashedPassword, password string) error {
-	return bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
+func BCryptCompareHashAndPassword(hashedPassword, password string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
+	return err == nil
 }
