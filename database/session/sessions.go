@@ -11,7 +11,7 @@ import (
 	"sync"
 )
 
-var cookieSessionMap = new(sync.Map)
+var cookieSessionMap = sync.Map{}
 
 // NewCookieStore cookie初始化
 func NewCookieStore(keyPairs ...string) *sessions.CookieStore {
