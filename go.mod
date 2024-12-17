@@ -11,8 +11,8 @@ require (
 	github.com/bwmarrin/snowflake v0.3.0
 	github.com/evanphx/json-patch v0.5.2
 	github.com/fatih/color v1.18.0
-	github.com/fatih/pool v3.0.0+incompatible
 	github.com/gin-gonic/gin v1.10.0
+	github.com/go-eden/routine v1.0.2
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/go-sql-driver/mysql v1.8.1
 	github.com/gobwas/ws v1.4.0
